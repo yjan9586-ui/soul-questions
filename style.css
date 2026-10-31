@@ -35,10 +35,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 
 .qhead{padding-block:28px 22px;display:grid;gap:6px}
 .eyebrow{font-size:13px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase}
-.eyebrow span{font-family:var(--en);font-style:italic;letter-spacing:.04em;text-transform:none;color:var(--muted);margin-left:10px;font-size:15px}
-h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4.4vw,52px);line-height:1.3;margin:0;text-wrap:balance}
+.eyebrow span{font-family:var(--serif);letter-spacing:.1em;text-transform:none;color:var(--muted);margin-left:10px;font-size:14px}
+h1{font-family:var(--en);font-weight:600;font-size:clamp(28px,4.6vw,54px);line-height:1.22;margin:0;text-wrap:balance}
 .en{font-family:var(--en);font-style:italic;color:var(--muted)}
-.qhead .en{font-size:clamp(18px,2.2vw,26px);line-height:1.35;margin:0;text-wrap:balance}
+.zhsub{font-family:var(--serif);color:var(--muted);font-size:clamp(16px,2vw,22px);line-height:1.5;margin:4px 0 0;text-wrap:balance}
 
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 @media (max-width:760px){.opts{grid-template-columns:1fr}}
@@ -51,8 +51,8 @@ h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4.4vw,52px);lin
   display:grid;place-items:center;font-family:var(--mono);font-size:17px;border:1.5px solid var(--c);color:var(--c)}
 .opt.mine{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
 .opt.mine .letter{background:var(--c);color:var(--ground)}
-.opt .zh{position:relative;font-size:clamp(17px,1.9vw,22px);font-weight:500;line-height:1.45;padding-right:84px}
-.opt .oen{position:relative;font-family:var(--en);font-style:italic;color:var(--muted);font-size:clamp(15px,1.5vw,18px);line-height:1.35;padding-right:84px}
+.opt .oen{position:relative;font-family:var(--en);font-weight:500;font-size:clamp(19px,2.1vw,25px);line-height:1.3;padding-right:84px}
+.opt .zh{position:relative;color:var(--muted);font-size:clamp(14px,1.4vw,16px);line-height:1.45;padding-right:84px}
 .opt .num{position:absolute;right:18px;top:50%;transform:translateY(-50%);text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
 .opt .num .pct{display:block;font-size:24px;color:var(--c)}
 .opt .num .cnt{font-size:12px;color:var(--muted)}
@@ -65,19 +65,19 @@ h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4.4vw,52px);lin
 .pill.lock{border-color:var(--accent);color:var(--accent)}
 
 .spot{margin-top:22px;border-left:3px solid var(--accent);background:var(--surface2);border-radius:0 12px 12px 0;padding:18px 22px;display:grid;gap:4px}
-.spot .zh{font-family:var(--serif);font-size:clamp(20px,2.6vw,30px);line-height:1.45}
-.spot .en{font-size:clamp(16px,1.8vw,21px)}
+.spot .en{font-family:var(--en);font-style:normal;color:var(--ink);font-size:clamp(22px,2.8vw,32px);line-height:1.35}
+.spot .zh{font-family:var(--serif);color:var(--muted);font-size:clamp(15px,1.8vw,19px);line-height:1.5}
 .spot em{font-style:normal;color:var(--accent)}
 .prompt{margin-top:22px;color:var(--faint);font-size:14px}
-.prompt .en{font-size:15px}
+.prompt .zhp2{font-family:var(--serif)}
 
 .closing{padding-block:28px}
 .closing h1{margin-bottom:12px}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px 48px;margin-top:22px}
 @media (max-width:800px){.cols{grid-template-columns:1fr}}
 .cols>div{min-width:0}
-.zhp p{font-family:var(--serif);font-size:19px;line-height:2;margin:0 0 1em}
-.enp p{font-family:var(--en);font-size:19px;line-height:1.7;margin:0 0 1em;color:#d9d2c4}
+.enp p{font-family:var(--en);font-size:21px;line-height:1.65;margin:0 0 1em;color:var(--ink)}
+.zhp p{font-family:var(--serif);font-size:16px;line-height:1.9;margin:0 0 1em;color:var(--muted)}
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:30px}
 .sum{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .sum h3{margin:0 0 8px;font-size:14px;font-weight:500;color:var(--muted)}
@@ -113,3 +113,5 @@ input[type=text],input[type=email],input[type=password],select{background:var(--
 .qr p{margin:0}
 .qr .url{font-family:var(--mono);font-size:14px;color:var(--muted);word-break:break-all;max-width:560px}
 @media (prefers-reduced-motion:reduce){.opt .fill{transition:none}}
+.brand b{font-family:var(--en);font-size:22px;letter-spacing:.02em}
+.brand i{font-family:var(--serif);font-style:normal;font-size:15px}

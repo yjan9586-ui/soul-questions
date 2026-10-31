@@ -86,10 +86,10 @@
   function renderTabs() {
     const t = $("#tabs"); t.textContent = "";
     ["一", "二", "三", "四"].forEach((n, i) => {
-      const b = el("button", "tab", "拷問" + n); b.setAttribute("aria-current", String(view === i));
+      const b = el("button", "tab", "Q" + (i + 1)); b.setAttribute("aria-current", String(view === i)); b.title = "靈魂拷問" + n;
       b.onclick = () => go(i); t.appendChild(b);
     });
-    const c = el("button", "tab", "結語 Closing"); c.setAttribute("aria-current", String(view === 4));
+    const c = el("button", "tab", "Closing 結語"); c.setAttribute("aria-current", String(view === 4));
     c.onclick = () => go(4); t.appendChild(c);
   }
 
@@ -105,8 +105,8 @@
     const hid = isHidden(q) && !IS_HOST;
     const m = $("#main"); m.textContent = "";
     const head = el("div", "qhead");
-    const eb = el("div", "eyebrow", "靈魂拷問" + Q.num); eb.appendChild(el("span", null, "Soul Question " + (q + 1)));
-    head.append(eb, el("h1", null, "「" + Q.zh + "」"), el("p", "en", "“" + Q.en + "”"));
+    const eb = el("div", "eyebrow", "Soul Question " + (q + 1)); eb.appendChild(el("span", null, "靈魂拷問" + Q.num));
+    head.append(eb, el("h1", null, "“" + Q.en + "”"), el("p", "zhsub", "「" + Q.zh + "」"));
     m.appendChild(head);
 
     const grid = el("div", "opts" + (hid ? " hiddenres" : ""));
@@ -116,33 +116,33 @@
       b.setAttribute("aria-pressed", String(mv === i));
       const pct = total ? Math.round((c[i] * 100) / total) : 0;
       const f = el("span", "fill"); f.style.width = pct + "%";
-      const num = el("span", "num"); num.append(el("span", "pct", pct + "%"), el("span", "cnt", c[i] + " 票"));
-      b.append(f, el("span", "letter", L[i]), el("span", "zh", o.zh), el("span", "oen", o.en), num);
-      if (mv === i) b.appendChild(el("span", "mark", "你的選擇 YOURS"));
+      const num = el("span", "num"); num.append(el("span", "pct", pct + "%"), el("span", "cnt", c[i] + (c[i] === 1 ? " vote" : " votes")));
+      b.append(f, el("span", "letter", L[i]), el("span", "oen", o.en), el("span", "zh", o.zh), num);
+      if (mv === i) b.appendChild(el("span", "mark", "YOURS 你的選擇"));
       if (!IS_HOST) b.onclick = () => vote(q, i); else b.style.cursor = "default";
       grid.appendChild(b);
     });
     m.appendChild(grid);
 
     const meta = el("div", "meta");
-    const tot = el("span"); tot.append("共 ", el("strong", null, String(total)), " 票 · " + total + " vote" + (total === 1 ? "" : "s"));
+    const tot = el("span"); tot.append(el("strong", null, String(total)), " vote" + (total === 1 ? "" : "s") + " · 共 " + total + " 票");
     meta.appendChild(tot);
     if (!IS_HOST) meta.appendChild(el("span", null, mv == null
-      ? "點選一個答案即可投票，可隨時更改 · Tap an answer to vote; you can change it anytime"
-      : "已投票，可點其他選項更改 · Voted — tap another to change"));
-    if (lockd(q)) meta.appendChild(el("span", "pill lock", "結果已鎖定 Results locked"));
-    if (isHidden(q)) meta.appendChild(el("span", "pill", IS_HOST ? "學員目前看不到結果 Hidden from students" : "結果稍後揭曉 Results hidden for now"));
+      ? "Tap an answer to vote; you can change it anytime · 點選答案即可投票，可隨時更改"
+      : "Voted — tap another to change · 已投票，可點其他選項更改"));
+    if (lockd(q)) meta.appendChild(el("span", "pill lock", "Results locked 結果已鎖定"));
+    if (isHidden(q)) meta.appendChild(el("span", "pill", IS_HOST ? "Hidden from students 學員目前看不到結果" : "Results hidden for now 結果稍後揭曉"));
     m.appendChild(meta);
 
     const sp = S.spot;
     if (sp && sp.q === q && Number.isInteger(sp.o) && Q.opts[sp.o]) {
       const name = String(sp.name || "").trim(), o = Q.opts[sp.o];
       const box = el("div", "spot");
+      const en = el("div", "en"); en.append("Now, ", el("em", null, name || "my friend"), ", please tell us why you chose ", el("em", null, L[sp.o] + ": " + o.en.replace(/[.。]+$/, "")), ".");
       const zh = el("div", "zh"); zh.append("現在請 ", el("em", null, name || "這位朋友"), " 告訴我，你為什麼選擇 ", el("em", null, L[sp.o] + "：" + o.zh), "？");
-      const en = el("div", "en"); en.append("Now, ", el("em", null, name || "my friend"), ", please tell us why you chose ", el("em", null, L[sp.o] + ": " + o.en), ".");
-      box.append(zh, en); m.appendChild(box);
+      box.append(en, zh); m.appendChild(box);
     } else {
-      const p = el("div", "prompt"); p.append("現在請ＸＸＸ告訴我，你為什麼選擇ＯＯＯ　", el("span", "en", "Now, please tell us why you chose your answer."));
+      const p = el("div", "prompt"); p.append("Now, please tell us why you chose your answer.　", el("span", "zhp2", "現在請ＸＸＸ告訴我，你為什麼選擇ＯＯＯ"));
       m.appendChild(p);
     }
   }
@@ -150,21 +150,21 @@
   function renderClosing() {
     const m = $("#main"); m.textContent = "";
     const s = el("section", "closing");
-    const eb = el("div", "eyebrow", "結語"); eb.appendChild(el("span", null, "Closing reflection"));
-    s.append(eb, el("h1", null, "「我」究竟是誰？"), el("p", "en", "Who am I, really?"));
+    const eb = el("div", "eyebrow", "Closing reflection"); eb.appendChild(el("span", null, "結語"));
+    s.append(eb, el("h1", null, "Who am I, really?"), el("p", "zhsub", "「我」究竟是誰？"));
     const cols = el("div", "cols"), z = el("div", "zhp"), e = el("div", "enp");
     CLOSE_ZH.forEach((t) => z.appendChild(el("p", null, t)));
     CLOSE_EN.forEach((t) => e.appendChild(el("p", null, t)));
-    cols.append(z, e); s.appendChild(cols);
+    cols.append(e, z); s.appendChild(cols);
     const sum = el("div", "summary");
     QS.forEach((Q, q) => {
       const c = counts(q), tot = c.reduce((a, b) => a + b, 0), hide = isHidden(q) && !IS_HOST;
-      const card = el("div", "sum"); card.appendChild(el("h3", null, "拷問" + Q.num + " · " + (hide ? "—" : tot) + " 票"));
+      const card = el("div", "sum"); card.appendChild(el("h3", null, "Question " + (q + 1) + " · " + (hide ? "—" : tot) + (tot === 1 ? " vote" : " votes")));
       Q.opts.forEach((o, i) => {
         const pct = tot ? Math.round((c[i] * 100) / tot) : 0;
         const r = el("div", "srow"); r.style.setProperty("--c", COL[i]);
         const bar = el("span", "b"), fi = el("i"); fi.style.width = (hide ? 0 : pct) + "%"; bar.appendChild(fi);
-        r.append(el("span", "l", L[i]), bar, el("span", "p", hide ? "—" : pct + "%")); r.title = o.zh + " / " + o.en;
+        r.append(el("span", "l", L[i]), bar, el("span", "p", hide ? "—" : pct + "%")); r.title = o.en + " / " + o.zh;
         card.appendChild(r);
       });
       sum.appendChild(card);
@@ -175,7 +175,7 @@
   function renderStatus() {
     $("#dot").className = "dot" + (connected ? " on" : "");
     const n = voterCount();
-    $("#statusText").textContent = (DEMO ? "示範模式 Demo · " : "") + (connected ? "已連線 Connected" : "連線中… Connecting…") + " · " + n + " 人已投票";
+    $("#statusText").textContent = (DEMO ? "Demo 示範模式 · " : "") + (connected ? "Connected 已連線" : "Connecting… 連線中") + " · " + n + (n === 1 ? " voter 人已投票" : " voters 人已投票");
     const fw = $("#followWrap"); if (fw) fw.hidden = IS_HOST;
   }
 
