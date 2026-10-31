@@ -1,0 +1,17 @@
+{
+  "rules": {
+    ".read": true,
+    "state": {
+      ".write": "auth != null && auth.token.email == 'HOST_EMAIL'"
+    },
+    "votes": {
+      ".write": "auth != null && auth.token.email == 'HOST_EMAIL'",
+      "$q": {
+        "$uid": {
+          ".write": "auth != null && auth.uid == $uid",
+          ".validate": "newData.hasChildren(['o','r']) && newData.child('o').isNumber() && newData.child('o').val() >= 0 && newData.child('o').val() <= 3 && newData.child('r').isNumber()"
+        }
+      }
+    }
+  }
+}
